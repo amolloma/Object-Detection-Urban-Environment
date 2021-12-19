@@ -17,7 +17,27 @@ def split(source, destination):
     args:
         - source [str]: source data directory, contains the processed tf records
         - destination [str]: destination data directory, contains 3 sub folders: train / val / test
-    """      
+    """
+        # creates a list of files in the source directory
+    files = os.listdir(source)
+    
+    # randomly shuffle files
+    random.shuffle(files)
+    
+    #calculate index to slice files based on percentage
+    split_percent = .85
+    idx = int(len(files)*split_percent)
+    
+    #locations for dumping the split files
+    train_folder = "/home/workspace/data/waymo/train/"
+    val_folder = "/home/workspace/data/waymo/val/"
+
+    # looping through source file list and splitting
+    for i, filename in enumerate(files):
+        if i < idx:
+            shutil.move(os.path.join(source, filename), train_folder)
+        else:
+            shutil.move(os.path.join(source, filename), val_folder)      
     
     
 
