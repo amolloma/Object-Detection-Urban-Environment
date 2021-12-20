@@ -169,18 +169,34 @@ The Waymo Open Dataset used to train the model contains 97 tfrecord files. Each 
 
 The images within the tfrecord file have distinct attributes including light condition (sunny/overcast), time of day (day/night/dusk) locations(residential/highways/countryside), weather(rainy/foggy/overcast) and density of tracked classes(high/medium/low). Following are a few examples of the images within the tfrecord files.
 
-##### Good light conditions
-|![](/images/sunny_fl.png) | ![](/images/hyde_out_sunny.png)|
+#### Good light conditions
+![](/images/sunny_fl.png)
+![](/images/hyde_out_sunny.png)
 
-##### Distinct weather and light conditions
-|![](/images/foggy_mi.png) | ![](/images/rainy_mi.png)|
-|![](/images/overcast_mi.png)|
+#### Distinct weather and light conditions
+![](/images/foggy_mi.png) 
+![](/images/rainy_mi.png)
+![](/images/overcast_mi.png)
 
-##### Different tracked class densities
-|![](/images/busy_st.png) | ![](/images/low_den.png)
+#### Different tracked class densities
+![](/images/busy_st.png)
+![](/images/low_den.png)
+
+#### Data Distribution Analysis
+The Waymo Open Dataset used to train the Single Shot Detector Model is heavily biased to detect Vehicles and Pedestrians. Based on an analysis of 1000 shuffled images available in the training dataset, vehicles accounted for 77% of the tracked classes followed by pedestrian at 23% and cyclists at 1%.
+
+![](/images/class_distribution.png)
+
+The percentage of tracked cyclist in 20000 random images reduces to 0.56%, with tracked pedestrians at 22.41% and vehicles at 77.03%. 
+
+![](/images/class_distribution_2.png)
+
+Training an Object Detection Model on dataset with uneven distribution of tracked classes doesnt not bode well for the tracked class with lowest frequency. In this case the model wont predict or track cyclists with great accuracy and can mislable tracked cyclists.
 
 #### Cross validation
-This section should detail the cross validation strategy and justify your approach.
+The 97 available training and validation files were divided 85:15 split. This allows for 82 tfrecords files for training and 15 tfrecord files validation. The create_splits files first shuffles the tfrecord files before splitting the dataset. In this case shuffling allows for the dataset to be less variant, keeping the dataset representative of everyday urban driving environment and avoid overfitting.
+
+Testing files are already provided, so the 82 tfrecord files to train a pretrained model are sufficient. The 15 tfrecord files shall be more that sufficient to exhaustively validate the trained model and help avoid overfitting.
 
 ### Training
 #### Reference experiment
