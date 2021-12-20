@@ -200,7 +200,20 @@ Testing files are already provided, so the 82 tfrecord files to train a pretrain
 
 ### Training
 #### Reference experiment
-This section should detail the results of the reference experiment. It should includes training metrics and a detailed explanation of the algorithm's performances.
+The Model uses a pretraing Single Shot Detector (SSD) Resnet 50 neural network model. The SSD Resnet 50 model has two image augmentations random horizontal flip and random image crop. The following shows the training and validation loss for the reference model with no additional augmentations, a learning rate of 0.04. The learning rate is annealed using a cosine decay function.
+
+![](/images/Reference_loss.png)
+
+As evidence by the loss metrics, this model performs poorly on the training and validation dataset with substantial loss/total_loss. The training loss is show in orange and validation loss is shown in blue. The model seems to be either stuck in a local minima based on the gradual plateau of the loss metrics.
 
 #### Improve on the reference
-This section should highlight the different strategies you adopted to improve your model. It should contain relevant figures and details of your findings.
+Possible ways to improve the model are:
+    1. Add Image augmentations, to provide greater training variety to the model
+    2. Adjust or decrease learning rate
+    3. Increase number of training steps
+
+#### Image Augmentations
+Following Image Augmentations were implemented in the model improvements
+
+Brightness adjusted by a delta of 0.3. Most images seem to have perfect light condition, increasing the brightness creates overexposed images making it harder to detect features.
+![](/images/bright_1.png) ![](/images/bright_2.png)
