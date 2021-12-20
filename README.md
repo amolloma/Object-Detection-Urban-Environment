@@ -185,11 +185,11 @@ The images within the tfrecord file have distinct attributes including light con
 #### Data Distribution Analysis
 The Waymo Open Dataset used to train the Single Shot Detector Model is heavily biased to detect Vehicles and Pedestrians. Based on an analysis of 1000 shuffled images available in the training dataset, vehicles accounted for 77% of the tracked classes followed by pedestrian at 23% and cyclists at 1%.
 
-![](/images/class_distribution.png =150x)
+![](/images/class_distribution.png)
 
 The percentage of tracked cyclist in 20000 random images reduces to 0.56%, with tracked pedestrians at 22.41% and vehicles at 77.03%. 
 
-![](/images/class_distribution_2.png =150x)
+![](/images/class_distribution_2.png)
 
 Training an Object Detection Model on dataset with uneven distribution of tracked classes doesnt not bode well for the tracked class with lowest frequency. In this case the model wont predict or track cyclists with great accuracy and can mislable tracked cyclists.
 
