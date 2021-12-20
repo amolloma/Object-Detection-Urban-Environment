@@ -216,4 +216,26 @@ Possible ways to improve the model are:
 Following Image Augmentations were implemented in the model improvements
 
 Brightness adjusted by a delta of 0.3. Most images seem to have perfect light condition, increasing the brightness creates overexposed images making it harder to detect features.
+
 ![](/images/bright_1.png) ![](/images/bright_2.png)
+
+Contrast adjusted between min delta = 0.7 and max delta = 1.1. This randomly scales the image contrast between 0.7 - 1.1, emulating harsh sunlight condition creating drastic shadows and light areas.
+
+![](/images/contrast_1.png) ![](/images/contrast_2.png)
+
+Additional random RGB to Gray augmentation with a proability of 0.3. This negates the ability of the model to rely on color changes as distincting feature.
+
+![](/images/gray_bright_1.png) ![](/images/gray_contrast_1.png)
+
+#### Adjust Learning Rate
+Following multiple training iteration the final training rate was set at 0.0001819 that is annealed using a consine decay.
+
+The following are the loss metrics for experiment_2, the pipeline config file for this iteration can be found under experiments/experiment_2.
+
+![](/images/exp_2_loss.png)
+
+Since the density of tracked vehicles is dominant in the dataset, the model performs the best in detecting larger objects i.e. vehicles.This can be evidenced by the fact that the mean average percision for large boxes in the figure below is 0.5 and reduces to approximately 0.2 for small tracked objects.
+
+![](/images/exp_2_map.png)
+
+The augmented model with adjusted learning rate as depicted above performs considerable better than the reference model as evidenced by the loss metrics. The model is better at tracking vehicles in variety of representative light, weather conditions, traffic etc. Because the dataset is not balanced and does not provide considerable amounts of datapoints for cyclists and pedestrians it under performs in detecting these two tracked classes. With a better and balanced dataset, the model can be trained to perform better on all tracked classes.
